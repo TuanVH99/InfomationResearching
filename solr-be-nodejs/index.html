@@ -1,87 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+    </head>
 
-<body>
-    <h1>
-        SEARCH SOMETHING FROM IMDB!
-    </h1>
+    <body>
+        <nav class="navbar navbar-light bg-dark">
+            <div class="container-fluid">
+                <h1 class="navbar-brand mb-0 h1 text-white">SEARCH SOMETHING FROM IMDB!</h1>
+            </div>
+        </nav>
 
-    <div id="search">
-        <input id="input-search" type="text" placeholder="type a term">
-        <button id="btn-find">Find!</button>
-    </div>
-    <div id="choices">
-        <input type="checkbox" name="title" id="cb-title"><label for="title">Title</label>
-        <input type="checkbox" name="rating" id="cb-rating"><label for="rating">Rating</label>
-        <input type="checkbox" name="year" id="cb-year"><label for="year">Year</label>
-        <input type="checkbox" name="user-rating" id="cb-urating"><label for="user-rating">User rating</label>
-        <input type="checkbox" name="language" id="cb-language"><label for="language">Language</label>
-        <input type="checkbox" name="actor" id="cb-actor"><label for="actor">Actor</label>
-        <input type="checkbox" name="genre" id="cb-genre"><label for="genre">Genre</label>
-        <input type="checkbox" name="tagline" id="cb-tagline"><label for="tagline">Tagline</label>
-        <input type="checkbox" name="description" id="cb-description"><label for="description">Description</label>
-        <input type="checkbox" name="director" id="cb-director"><label for="director">Director</label>
-        <input type="checkbox" name="duration" id="cb-duration"><label for="duration">Duration</label>
-        <!-- <input type="checkbox" name="all" id="cb-all"><label for="all">All</label> -->
-    </div>
 
-    <script>
-        var btnFind = document.getElementById("btn-find");
-        var inputSearch = document.getElementById("input-search");
-        var title = document.getElementById('cb-title')
-        var rating = document.getElementById('cb-rating')
-        var year = document.getElementById('cb-year')
-        var userRating = document.getElementById('cb-user-rating')
-        var language = document.getElementById('cb-language')
-        var actor = document.getElementById('cb-actor')
-        var genre = document.getElementById('cb-genre')
-        var tagline = document.getElementById('cb-tagline')
-        var description = document.getElementById('cb-description')
-        var director = document.getElementById('cb-director')
-        var duration = document.getElementById('cb-duration')
-        // var all = document.getElementById('cb-all')
-        var query = ""
-        // all.checked = true;
-        btnFind.addEventListener('click', async () => {
-            var terms = inputSearch.value;
+        <div class="bg-secondary p-2" style="--bs-bg-opacity: .2;">
+            <!-- <div id="search">
+                <input class="form-control" id="input-search" type="text" placeholder="type a term">
+                <button id="btn-find" class="btn btn-outline-success">Find!</button>
+            </div> -->
 
-            try {
-                var result = await fetch(`http://localhost:3000/find/${query}`)
-                var resultJson = await result.json();
-                var data = await resultJson;
-                await console.log(data)
-            } catch (error) {
-                alert("Meet some ERR !");
-                console.log(error)
+            <div class="input-group input-group-lg">
+                <input id="input-search" placeholder="Type a term" type="text" class="form-control"
+                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                <span class="input-group-text btn btn-outline-success" id="btn-find">Find</span>
+            </div>
+
+            <div id="choices">
+                <h3>Fields Options:</h3>
+                <input class="m-1" type="checkbox" name="title" id="cb-title"><label for="title">Title</label>
+                <input class="m-1" type="checkbox" name="rating" id="cb-rating"><label for="rating">Rating</label>
+                <input class="m-1" type="checkbox" name="year" id="cb-year"><label for="year">Year</label>
+                <input class="m-1" type="checkbox" name="user-rating" id="cb-urating"><label for="user-rating">User
+                    rating</label>
+                <input class="m-1" type="checkbox" name="language" id="cb-language"><label
+                    for="language">Language</label>
+                <input class="m-1" type="checkbox" name="actor" id="cb-actor"><label for="actor">Actor</label>
+                <input class="m-1" type="checkbox" name="genre" id="cb-genre"><label for="genre">Genre</label>
+                <input class="m-1" type="checkbox" name="tagline" id="cb-tagline"><label for="tagline">Tagline</label>
+                <input class="m-1" type="checkbox" name="description" id="cb-description"><label
+                    for="description">Description</label>
+                <input class="m-1" type="checkbox" name="director" id="cb-director"><label
+                    for="director">Director</label>
+                <input class="m-1" type="checkbox" name="duration" id="cb-duration"><label
+                    for="duration">Duration</label>
+                <!-- <input type="checkbox" name="all" id="cb-all"><label for="all">All</label> -->
+                <h3>Operation Options:</h3>
+                  <input type="radio" id="radio-or" name="op" value="OR" checked>
+                  <label for="radio-or">OR</label>
+                  <input type="radio" id="radio-and" name="op" value="AND">
+                  <label for="radio-and">AND</label>
+                <h3>Term Options:</h3>
+                  <input type="radio" id="radio-contain" name="exact" value="OR" checked>
+                  <label for="radio-contain">Contain</label>
+                  <input type="radio" id="radio-exact" name="exact" value="AND">
+                  <label for="radio-exact">Exact</label>
+
+                <button id="btn-clear" type="button" class="btn btn-danger">Clear</button>
+            </div>
+        </div>
+
+
+
+        <div class="container p-3">
+            <div id="panel">
+
+            </div>
+            <div id="pagination"></div>
+        </div>
+
+        <script>
+            // variables
+            var btnFind = document.getElementById("btn-find");
+            var inputSearch = document.getElementById("input-search");
+            var title = document.getElementById('cb-title')
+            var rating = document.getElementById('cb-rating')
+            var year = document.getElementById('cb-year')
+            var userRating = document.getElementById('cb-user-rating')
+            var language = document.getElementById('cb-language')
+            var actor = document.getElementById('cb-actor')
+            var genre = document.getElementById('cb-genre')
+            var tagline = document.getElementById('cb-tagline')
+            var description = document.getElementById('cb-description')
+            var director = document.getElementById('cb-director')
+            var duration = document.getElementById('cb-duration')
+            var query = ""
+            var listCheckbox = document.querySelectorAll("input[type=checkbox]")
+            var resultDiv = document.getElementById("result")
+            var panel = $("#panel")
+            var btnClear = $("#clear");
+
+            // add listener
+            btnFind.addEventListener('click', async () => {
+                try {
+                    var terms = inputSearch.value;
+                    var check = []
+                    // resultDiv.innerHTML = ``
+                    listCheckbox.forEach((current) => {
+                        check.push(current.checked);
+                    })
+                    var fetchAllFields = checker(check)
+                    if (!terms) {
+                        var result = await fetch(`http://localhost:3000/find/all`)
+                        var resultJson = await result.json();
+                        var data = await resultJson;
+                        var x = data.data.docs
+                        let y = ""
+                        for (const i of x) {
+                            y += showInfo(i)
+                        }
+                        panel.html(y)
+                    } else if (fetchAllFields) {
+                        var result = await fetch(`http://localhost:3000/find/all?term=${terms}`)
+                        if (result.status == 400) {
+
+                        }
+                        var resultJson = await result.json();
+                        var data = await resultJson;
+                        var x = data.data.docs
+                        let y = ""
+                        for (const i of x) {
+                            y += showInfo(i)
+                        }
+                        panel.html(y)
+                    } else {
+                        var result = await fetch(`http://localhost:3000/find/field?${query}`)
+                        if (result.status == 400) {
+
+                        }
+                        var resultJson = await result.json();
+                        var data = await resultJson;
+                        var x = data.data.docs
+                        let y = ""
+                        for (const i of x) {
+                            y += showInfo(i)
+                        }
+                        panel.html(y)
+                    }
+                    $("#btn-clear").click();
+                } catch (error) {
+                    alert("Meet some ERR !");
+                    console.log(error)
+                }
+            })
+
+            addEventListenerList(listCheckbox, 'click', (event) => {
+                var terms = inputSearch.value;
+                if (event.target.checked) {
+                    let n = event.target.name;
+                    queryBuilder(n, terms, "add")
+                } else {
+                    let n = event.target.name;
+                    queryBuilder(n, terms, "remove")
+                }
+            })
+
+            // utilise functions
+            function addEventListenerList(list, event, fn) {
+                for (var i = 0, len = list.length; i < len; i++) {
+                    list[i].addEventListener(event, fn, false);
+                }
             }
-        })
 
-        var listCheckbox = document.querySelectorAll("input[type=checkbox]")
-        addEventListenerList(listCheckbox, 'click', (event) => {
-            // console.log(event.target.checked);
-            console.log(event.target.name + ":" + inputSearch.value)
-            if (event.target.checked) {
-                query += event.target.name + ":" + inputSearch.value
-            } else {
-                if (query.includes(event.target.name))
-                    query.replace(`${event.target.name}:${inputSearch.value}`, "")
+            function queryBuilder(field, value, option) {
+                var q = query.trim();
+                var optionalParams = "";
+                if (option == 'add') {
+                    if (q == "") {
+                        q += `${field}=${value}`
+                    } else {
+                        q += `&${field}=${value}`
+                    }
+                } else {
+                    q = q.replace(`${field}=${value}`, "")
+                }
+                query = q;
+                console.log(q)
             }
-            console.log(query)
-        })
+            function checker(arr) {
+                return arr.every(item => item == arr[0])
+            }
 
-        function addEventListenerList(list, event, fn) {
-            for (var i = 0, len = list.length; i < len; i++) {
-                list[i].addEventListener(event, fn, false);
+            $("#radio-or").on("click", function () {
+                if (!query.indexOf(`&op=`)) {
+                    return
+                } else {
+                    query.replace("&op=AND", "")
+                }
+            })
+            $("#radio-and").on("click", function () {
+                query += "&op=AND"
+            })
+            $("#radio-exact").on("click", function () {
+                query += "&exact=true"
+            })
+            $("#radio-contain").on("click", function () {
+                query.replace(`&exact=true`, "")
+            })
+
+            $("#btn-clear").on("click", function () {
+                console.log(1)
+                $('input[type=checkbox]').prop('checked', false);
+                query = ""
+                $('#radio-or').click()
+                $("#radio-contain").click();
+            });
+
+            // html function
+            function showInfo(data) {
+                var html = `<div class="row">
+                <div class="col-2">
+                    <img src="${data.img_url}"
+                        class="rounded" alt="...">
+                </div>
+                <div class="col-10">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><a class="navbar-brand" href="${data.imdb_url}">${data.title}</a></h3>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">Release: ${data.year}</h6>
+                            <p class="card-text">
+                                ${data.description}
+                            </p>
+                            <p class="card-text">
+                                Duration: ${data.duration}
+                            </p>
+                            <p class="card-text">
+                                Actors:
+                                ${data.actors.map(i => `<span class="badge rounded-pill bg-primary">${i}</span>`)
+                    }
+                                
+                            </p>
+                            <p class="card-text">
+                                Directors:
+                                ${data.directors.map(i => `<span class="badge rounded-pill bg-secondary">${i}</span>`)}
+                                                          </p>
+
+                            <p class="card-text">
+                                Genre:
+                                ${data.genre.map(i => `<span class="badge rounded-pill bg-info text-dark">${i}</span>`)}
+                             
+                            </p>
+                            <p class="card-text">
+                                Country:
+                                ${data.countries.map(i => `<span class="badge rounded-pill bg-warning text-dark">${i}</span>`)}
+                              
+                            </p>
+                            <p class="card-text">
+                                Languages:
+                                ${data.languages.map(i => `<span class="badge rounded-pill bg-success ">${i}</span>`)}
+                               
+                            </p>
+                            <div class="container-fluid">
+                                <div class="col6">Votes: ${data.votes}</div>
+                                <div class="col6">AVG point: ${data.user_rating}</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>`
+                return html;
             }
-        }
-    </script>
-</body>
+        </script>
+    </body>
 
 </html>
