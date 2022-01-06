@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>
+        SEARCH SOMETHING FROM IMDB!
+    </h1>
+
+    <div id="search">
+        <input id="input-search" type="text" placeholder="type a term">
+        <button id="btn-find">Find!</button>
+    </div>
+    <div id="choices">
+        <input type="checkbox" name="title" id="cb-title"><label for="title">Title</label>
+        <input type="checkbox" name="rating" id="cb-rating"><label for="rating">Rating</label>
+        <input type="checkbox" name="year" id="cb-year"><label for="year">Year</label>
+        <input type="checkbox" name="user-rating" id="cb-urating"><label for="user-rating">User rating</label>
+        <input type="checkbox" name="language" id="cb-language"><label for="language">Language</label>
+        <input type="checkbox" name="actor" id="cb-actor"><label for="actor">Actor</label>
+        <input type="checkbox" name="genre" id="cb-genre"><label for="genre">Genre</label>
+        <input type="checkbox" name="tagline" id="cb-tagline"><label for="tagline">Tagline</label>
+        <input type="checkbox" name="description" id="cb-description"><label for="description">Description</label>
+        <input type="checkbox" name="director" id="cb-director"><label for="director">Director</label>
+        <input type="checkbox" name="duration" id="cb-duration"><label for="duration">Duration</label>
+        <!-- <input type="checkbox" name="all" id="cb-all"><label for="all">All</label> -->
+    </div>
+
+    <script>
+        var btnFind = document.getElementById("btn-find");
+        var inputSearch = document.getElementById("input-search");
+        var title = document.getElementById('cb-title')
+        var rating = document.getElementById('cb-rating')
+        var year = document.getElementById('cb-year')
+        var userRating = document.getElementById('cb-user-rating')
+        var language = document.getElementById('cb-language')
+        var actor = document.getElementById('cb-actor')
+        var genre = document.getElementById('cb-genre')
+        var tagline = document.getElementById('cb-tagline')
+        var description = document.getElementById('cb-description')
+        var director = document.getElementById('cb-director')
+        var duration = document.getElementById('cb-duration')
+        // var all = document.getElementById('cb-all')
+        var query = ""
+        // all.checked = true;
+        btnFind.addEventListener('click', async () => {
+            var terms = inputSearch.value;
+
+            try {
+                var result = await fetch(`http://localhost:3000/find/${query}`)
+                var resultJson = await result.json();
+                var data = await resultJson;
+                await console.log(data)
+            } catch (error) {
+                alert("Meet some ERR !");
+                console.log(error)
+            }
+        })
+
+        var listCheckbox = document.querySelectorAll("input[type=checkbox]")
+        addEventListenerList(listCheckbox, 'click', (event) => {
+            // console.log(event.target.checked);
+            console.log(event.target.name + ":" + inputSearch.value)
+            if (event.target.checked) {
+                query += event.target.name + ":" + inputSearch.value
+            } else {
+                if (query.includes(event.target.name))
+                    query.replace(`${event.target.name}:${inputSearch.value}`, "")
+            }
+            console.log(query)
+        })
+
+        function addEventListenerList(list, event, fn) {
+            for (var i = 0, len = list.length; i < len; i++) {
+                list[i].addEventListener(event, fn, false);
+            }
+        }
+    </script>
+</body>
+
+</html>
