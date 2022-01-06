@@ -148,10 +148,6 @@ These are the **FINAL** stats when the default `SEARCH_QUERY` is used.
     "start_time": datetime.datetime(2018, 12, 28, 7, 46, 8, 317470)
 }
 
- ```
- ## IMDB Movie Dataset (58,623 Movies)
- 
- The dataset obtained from the above crawler is uploaded in the Google Drive and can be downloaded from this link: https://drive.google.com/open?id=13OE6CyqqDqJRpP-8JR15l9Tjb2fSWa6r
  
  
 ## Disclaimer
