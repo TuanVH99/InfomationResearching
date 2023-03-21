@@ -1,13 +1,13 @@
 # INTRODUCTION
 <p align="center">
-Film searching with Solr from IMDB
+Film searching with Solr. The data is crawled from IMDB
 </p>
 
 ## ABOUT CREATOR
 
 ***1. Vũ Hoàng Tuấn***
 
-Backend developer
+Responsible as Backend developer
 
 > tuan.vh175995@sis.hust.edu.vn 
 
@@ -33,9 +33,13 @@ Open commandline, type:
 
 ### Scrapy
 
+Used python for crawling data from imdb
+
 I suggest install with anaconda, then open the *Anaconda Powershell Prompt*, `cd` to `.\scrapy\imdb\` to run the command. more instruct in folder's **readme**
  
 ### Backend
+
+Used NodeJs for releasing API
 
 Just open commandline: `npm install`, `node index.js`, and done!
 
